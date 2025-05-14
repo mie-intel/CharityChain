@@ -53,10 +53,10 @@ contract CharityChain {
 
     // Function untuk mengambil donasi oleh admin
     function tarikDonasi() external isAdmin donasiSelesai {
-        require(donasiTerkumpul >= targetDonasi, "Target amount not reached");
-        
         uint amount = donasiTerkumpul;
         donasiTerkumpul = 0;
+        
+        require(donasiTerkumpul >= targetDonasi, "Target amount not reached");
         
         payable(admin).transfer(amount);
         
