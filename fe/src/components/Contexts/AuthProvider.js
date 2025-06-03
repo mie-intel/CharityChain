@@ -2,17 +2,38 @@
 
 import PropTypes from "prop-types";
 import { createClient } from "@/utils/supabase/client";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useContract } from "@/utils/hooks/useContract";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const supabase = createClient();
+  // const [contract, setContract] = useState(null);
+  // const [account, setAccount] = useState(null);
+
+  // useEffect(() => {
+  //   const initializeContract = async () => {
+  //     const { contract: newContract, account: newAccount } = await useContract();
+  //     setContract(newContract);
+  //     setAccount(newAccount);
+  //     console.log("Contract initialized:", newContract, contract);
+  //     console.log("Account initialized:", newAccount, account);
+  //   };
+
+  //   initializeContract();
+  // }, []);
+
   // create a new user
-  const signUp = async (name, username, password) => {
+  const signUp = async (username, email, password) => {
+    const { contract, account } = await useContract();
+    if (!contract) {
+      console.log("Contract not initialized");
+      return { status: "error", error: "Contract not initialized" };
+    }
     const { data, error } = await supabase.auth.signUp({
-      email: username,
+      email: email,
       password: password,
     });
 
@@ -23,20 +44,28 @@ const AuthProvider = ({ children }) => {
 
     console.log("data", data);
     const userData = {
-      userid: data.user.id,
-      nama: name,
+      uid: data.user.id,
       username: username,
       password: password,
+      balance: 0,
     };
     // insert data to user table
     if (data.user) {
-      const { error } = await supabase.from("users").insert([userData]);
+      const { error } = await supabase.from("Users").insert([userData]);
       if (error) {
         console.log("Insert error:", error.message);
       }
 
-      const { data: usersData } = await supabase.from("users").select("*");
+      const { data: usersData } = await supabase.from("Users").select("*");
       console.log("response", usersData);
+      const transaction = await contract.createUser(data.user.id, 0);
+      console.log("Transaction sent:", transaction);
+      await transaction.wait();
+      console.log("Transaction hash:", transaction.hash);
+
+      let transaction2 = await contract.getAllUser();
+      await transaction2.wait();
+      console.log("Transaction2 sent:", transaction2.hash);
     }
 
     return { status: "success", username: username };
@@ -94,8 +123,9 @@ const AuthProvider = ({ children }) => {
     return {
       status: "success",
       userid: data.user.id,
-      username: data.user.email,
-      name: dataUser.nama,
+      username: data.user.email.replace("@gmail.com", ""),
+      email: data.user.email,
+      balance: dataUser ? dataUser.balance : 0,
     };
   };
   return (

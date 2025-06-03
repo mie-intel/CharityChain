@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "@/components/AuthProvider";
+import { AuthContext } from "@/components/Contexts/AuthProvider";
 import { prettyJson } from "@/utils/helpers/prettyJson";
 import { User, Lock } from "lucide-react";
 import { InputWrapper, ButtonSubmit, Loading, Container } from "@/components/Elements";
@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const emailRef = useRef(null);
+  const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const router = useRouter();
 
@@ -19,7 +19,8 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
 
   const handleSubmit = useCallback(async () => {
-    const email = emailRef?.current?.value;
+    const username = usernameRef?.current?.value?.trim();
+    const email = username + "@gmail.com"; // Assuming email is derived from username
     const password = passwordRef?.current?.value;
 
     if (!email || !password) {
@@ -51,14 +52,14 @@ export default function Page() {
       setError(null);
     }
     router.refresh();
-    router.push("/dashboard");
+    router.push("/home");
   }, []);
 
-  // useEffect(() => {
-  //   setLoading(false);
-  // }, []);
-  // if (loading)
-  //   return <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />;
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+  if (loading)
+    return <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />;
 
   return (
     <>
@@ -69,7 +70,7 @@ export default function Page() {
               Sign in
             </h2>
             <div className="mt-6 flex w-full flex-col gap-4">
-              <InputWrapper ref={emailRef} icon={User} placeholder="Email" />
+              <InputWrapper ref={usernameRef} icon={User} placeholder="Email" />
               <InputWrapper ref={passwordRef} type="password" icon={Lock} placeholder="Password" />
               {error && (
                 <p className="font-eudoxus-medium text-center text-sm text-[#FF0000] lg:text-xl">

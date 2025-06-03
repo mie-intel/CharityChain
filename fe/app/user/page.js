@@ -1,4 +1,26 @@
+"use client";
+
+import { useContext, useState, useEffect } from "react";
+import { Loading } from "@/components/Elements";
+import { AuthContext } from "@/components/Contexts/AuthProvider";
+
 export default function User() {
+  const { getCurrentUser } = useContext(AuthContext);
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const user = await getCurrentUser();
+      if (user.status === "success") {
+        setCurrentUser(user);
+      } else {
+        console.error("Error fetching current user:", user.error);
+      }
+    };
+    fetchCurrentUser();
+  }, []);
+  if (!currentUser) {
+    return <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />;
+  }
   return (
     <>
       <link
@@ -21,10 +43,6 @@ export default function User() {
                 </span>
                 Kembali
               </a>
-              <a href="" className="flex font-medium">
-                <span className="material-symbols-outlined mr-1">account_circle</span>
-                <p>Ubah Detail Akun</p>
-              </a>
             </div>
             <div className="flex">
               <div className="flex h-[128px] w-[128px] items-center justify-center overflow-hidden rounded-full shadow-lg">
@@ -35,19 +53,15 @@ export default function User() {
                 />
               </div>
               <div className="flex-flex-col ml-[64px]">
-                <h2 className="mb-5 text-2xl font-extrabold">Garbharata Adji Tegoeh</h2>
+                <h2 className="mb-5 text-2xl font-extrabold">{currentUser?.username}</h2>
                 <div className="mb-4 flex items-center text-lg">
                   <span className="material-symbols-outlined">attach_money</span>
                   <p className="mr-2 font-bold">Saldo:</p>
-                  <span className="font-extrabold text-blue-500">ETH 20</span>
+                  <span className="font-extrabold text-blue-500">ETH {currentUser?.balance}</span>
                 </div>
                 <div className="mb-3 flex flex-col">
                   <h3>Address</h3>
-                  <p className="font-medium">DSHD73B32DBSUPL</p>
-                </div>
-                <div className="mb-3 flex flex-col">
-                  <h3>Email</h3>
-                  <p className="font-medium">teguhgantengbanget777@gmail.com</p>
+                  <p className="font-medium">{currentUser?.address ? currentUser?.address : "-"}</p>
                 </div>
               </div>
             </div>
