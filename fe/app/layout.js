@@ -1,30 +1,36 @@
-import {
-  EudoxusBold,
-  EudoxusExtraBold,
-  EudoxusLight,
-  EudoxusRegular,
-  EudoxusMedium,
-} from "@/utils/helpers/font";
-
-import AnimationProvider from "@/components/Contexts/AnimationProvider";
+// import { fontVariables } from "@/utils/helpers/font";
+import React, { Suspense } from "react";
 import "@/styles/globals.css";
-import { cn } from "@/utils/helpers/cn";
+import { AuthProvider } from "@/components/Contexts/AuthProvider";
+import PropTypes from "prop-types";
+import { Loading } from "@/components/Elements";
+import ClientProviderWrapper from "@/components/Elements/ClientWrapper";
+
+export const metadata = {
+  title: "CharityChain",
+  description:
+    "CharityChain is a platform that connects donors with charitable organizations, making it easy to support causes you care about.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          EudoxusBold.variable,
-          EudoxusExtraBold.variable,
-          EudoxusLight.variable,
-          EudoxusMedium.variable,
-          EudoxusRegular.variable,
-          "antialiased",
-        )}
-      >
-        <AnimationProvider>{children}</AnimationProvider>
+    <html lang="id">
+      <body className="antialiased" suppressHydrationWarning>
+        <Suspense
+          fallback={
+            <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />
+          }
+        >
+          <ClientProviderWrapper>{children}</ClientProviderWrapper>
+        </Suspense>
       </body>
     </html>
   );
 }
+
+RootLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+};

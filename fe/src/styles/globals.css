@@ -1,2 +1,80 @@
 @import "tailwindcss";
 @config "../../tailwind.config.js";
+
+@font-face {
+  font-family: "EudoxusRegular";
+  src: url("/font/EudoxusSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "EudoxusLight";
+  src: url("/fonts/EudoxusSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "EudoxusMedium";
+  src: url("/fonts/EudoxusSans-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "EudoxusBold";
+  src: url("/fonts/EudoxusSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "EudoxusExtraBold";
+  src: url("/fonts/EudoxusSans-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-eudoxus-regular: "EudoxusRegular", system-ui, arial, sans-serif;
+  --font-eudoxus-medium: "EudoxusMedium", system-ui, arial, sans-serif;
+  --font-eudoxus-bold: "EudoxusBold", system-ui, arial, sans-serif;
+  --font-eudoxus-extrabold: "EudoxusExtraBold", system-ui, arial, sans-serif;
+  --font-eudoxus-light: "EudoxusLight", system-ui, arial, sans-serif;
+}
+
+/* Base font family classes */
+.font-eudoxus {
+  font-family: var(--font-eudoxus-regular);
+}
+
+.font-eudoxus-regular {
+  font-family: var(--font-eudoxus-regular);
+  font-weight: 400;
+}
+
+.font-eudoxus-medium {
+  font-family: var(--font-eudoxus-medium);
+  font-weight: 500;
+}
+
+.font-eudoxus-bold {
+  font-family: var(--font-eudoxus-bold);
+  font-weight: 700;
+}
+
+.font-eudoxus-extrabold {
+  font-family: var(--font-eudoxus-extrabold);
+  font-weight: 800;
+}
+
+.font-eudoxus-light {
+  font-family: var(--font-eudoxus-light);
+  font-weight: 300;
+}
