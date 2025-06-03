@@ -19,7 +19,10 @@ export default function Campaign() {
             id="nav-menu"
           >
             <div className="flex flex-col items-center md:flex-row md:justify-between">
-              <a href="/home" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+              <a href="/" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+                Beranda
+              </a>
+              <a href="/campaign" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
                 Campaign
               </a>
               <a href="/user" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
@@ -47,79 +50,72 @@ export default function Campaign() {
           </div>
         </div>
       </nav>
-      <section id="add-campaign" className="py-30 text-black">
+
+      <section id="catalogue" className="py-30 text-black">
         <div className="container mx-auto px-4">
-          <h1 className="text-blue-dark mb-10 text-center text-4xl font-extrabold md:text-left">
-            Tambah Campaign Baru
+          <h1 className="text-blue-dark mb-3 text-center text-4xl font-extrabold md:text-left">
+            Campaign Saat Ini
           </h1>
-          <div className="mb-5 flex flex-col rounded-lg border-1 border-green-700 bg-green-100 px-10 py-7 shadow-md">
-            <h2 className="font-medium text-green-700">Campaign Berhasil Ditambahkan!</h2>
-          </div>
-          <div className="flex flex-col overflow-hidden rounded-md px-10 py-10 shadow-md md:px-10 md:py-10">
-            <a
-              href="/home"
-              className="group mb-7 flex items-center transition-all duration-200 hover:font-bold"
-            >
-              <span className="material-symbols-outlined mr-1 transition-all duration-200 ease-in-out group-hover:-translate-x-3">
-                arrow_back
-              </span>
-              Kembali
-            </a>
-            <h2 className="mb-7 text-lg font-bold">Masukkan Data Campaign</h2>
-            <form action="">
-              <div className="mb-7 flex flex-col justify-between">
-                <label htmlFor="name" className="after:text-red font-medium after:content-['*']">
-                  Nama Campaign
+          <p className="mb-10 text-lg">
+            Seberapun yang kamu berikan, akan sangat berharga bagi mereka yang membutuhkan!
+          </p>
+          <div className="flex flex-col overflow-hidden rounded-md px-4 py-7 shadow-md md:px-10 md:py-10">
+            <div className="mb-10 flex w-full justify-between">
+              <form action="#" className="flex">
+                <label htmlFor="search" className="flex items-center">
+                  <span className="material-symbols-outlined mr-1">search</span>
                 </label>
                 <input
-                  type="name"
-                  name="name"
-                  id="name"
-                  placeholder="Dukung Pengamen Itu Agar Tidak Putus Sekolah"
-                  required
-                  className="border-b-1 py-1.5 outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
+                  type="text"
+                  name="search"
+                  id="search"
+                  placeholder="Cari..."
+                  autoFocus
+                  className="outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
                 />
-              </div>
-              <div className="flex">
-                <div className="flex flex-col justify-between">
-                  <label
-                    htmlFor="target"
-                    className="after:text-red font-medium after:content-['*']"
-                  >
-                    Nominal Target Donasi Campaign
-                  </label>
-                  <div className="flex items-center">
-                    <p className="mr-2 font-bold text-blue-500">ETH</p>
-                    <input
-                      type="text"
-                      name="target"
-                      id="target"
-                      placeholder="200"
-                      required
-                      className="border-b-1 py-1.5 outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
-                    />
+              </form>
+              <a
+                href="/campaign/create"
+                className="hover:text-blue-navy flex cursor-pointer rounded-md bg-blue-500 px-3 py-2 font-medium text-white hover:bg-blue-400"
+              >
+                <span className="material-symbols-outlined"> add </span>
+                <p>Tambah Campaign</p>
+              </a>
+            </div>
+            <div className="flex w-full flex-wrap justify-between gap-10">
+              <a
+                href="/home/view"
+                className="flex max-w-sm cursor-pointer flex-col overflow-hidden rounded-lg shadow-md transition-all duration-200 hover:scale-101 hover:bg-blue-50 hover:shadow-lg"
+              >
+                <img
+                  src="/donate-bg.jpg"
+                  alt="Gambar Obat"
+                  className="h-1/3 w-full bg-center object-cover"
+                />
+                <div className="flex flex-col justify-center px-5 py-4 md:px-7">
+                  <h2 className="mb-3 text-lg font-bold">Dukung Teguh Beli Hewan Kurban!</h2>
+                  <div className="flex flex-col">
+                    <h3 className="text-blue-dark text-xl font-extrabold text-blue-500">
+                      Rp12.657.909
+                    </h3>
+                    <p>
+                      terkumpul dari <span className="font-bold">Rp20.000.000</span>
+                    </p>
+                  </div>
+                  <p className="mt-3 mb-5 text-base font-light">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In aut eligendi
+                    quibusdam temporibus mollitia, itaque nisi repellendus quae consectetur optio?
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-red flex items-center font-bold">
+                      <span className="material-symbols-outlined mr-1">timer</span>
+                      <p>12 hari lagi</p>
+                    </h4>
+                    <p className="text-sm font-medium">Hamba Allah</p>
                   </div>
                 </div>
-                <div className="ml-7 flex flex-col justify-between">
-                  <label
-                    htmlFor="target"
-                    className="after:text-red font-medium after:content-['*']"
-                  >
-                    Durasi Campaign
-                  </label>
-                  <div className="flex items-center">
-                    <input
-                      type="text"
-                      name="target"
-                      id="target"
-                      placeholder="50"
-                      required
-                      className="border-b-1 py-1.5 outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
-                    />
-                  </div>
-                </div>
-              </div>
-            </form>
+              </a>
+            </div>
           </div>
         </div>
       </section>

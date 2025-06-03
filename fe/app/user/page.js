@@ -19,7 +19,10 @@ export default function User() {
             id="nav-menu"
           >
             <div className="flex flex-col items-center md:flex-row md:justify-between">
-              <a href="" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+              <a href="/" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+                Beranda
+              </a>
+              <a href="/campaign" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
                 Campaign
               </a>
               <a href="/user" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
@@ -78,13 +81,13 @@ export default function User() {
               </div>
               <div className="flex-flex-col ml-[64px]">
                 <h2 className="mb-5 text-2xl font-extrabold">Garbharata Adji Tegoeh</h2>
-                <div class="mb-5 flex items-center">
+                <div className="mb-5 flex items-center">
                   <p className="text-xl font-extrabold text-blue-500">ETH 20</p>
                   <a
                     href=""
                     className="ml-4 flex items-center rounded-md bg-blue-500 px-2 py-1 text-sm font-medium text-white hover:bg-blue-400"
                   >
-                    <span class="material-symbols-outlined mr-1">arrow_upward</span>
+                    <span className="material-symbols-outlined mr-1">arrow_upward</span>
                     <p>Top Up</p>
                   </a>
                 </div>
