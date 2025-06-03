@@ -36,18 +36,19 @@ export default function User() {
               </div>
               <div className="flex-flex-col ml-[64px]">
                 <h2 className="mb-5 text-2xl font-extrabold">Garbharata Adji Tegoeh</h2>
-                <div className="mb-4 flex items-center text-lg">
-                  <span className="material-symbols-outlined">attach_money</span>
-                  <p className="mr-2 font-bold">Saldo:</p>
-                  <span className="font-extrabold text-blue-500">ETH 20</span>
+                <div class="mb-5 flex items-center">
+                  <p className="text-xl font-extrabold text-blue-500">ETH 20</p>
+                  <a
+                    href=""
+                    className="ml-4 flex items-center rounded-md bg-blue-500 px-2 py-1 text-sm font-medium text-white hover:bg-blue-400"
+                  >
+                    <span class="material-symbols-outlined mr-1">arrow_upward</span>
+                    <p>Top Up</p>
+                  </a>
                 </div>
                 <div className="mb-3 flex flex-col">
                   <h3>Address</h3>
                   <p className="font-medium">DSHD73B32DBSUPL</p>
-                </div>
-                <div className="mb-3 flex flex-col">
-                  <h3>Email</h3>
-                  <p className="font-medium">teguhgantengbanget777@gmail.com</p>
                 </div>
               </div>
             </div>

@@ -71,10 +71,13 @@ export default function Home() {
                   className="outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
                 />
               </form>
-              <div className="hover:text-blue-navy flex cursor-pointer rounded-md bg-blue-500 px-3 py-2 font-medium text-white">
+              <a
+                href="/campaign"
+                className="hover:text-blue-navy flex cursor-pointer rounded-md bg-blue-500 px-3 py-2 font-medium text-white hover:bg-blue-400"
+              >
                 <span className="material-symbols-outlined"> add </span>
                 <p>Tambah Campaign</p>
-              </div>
+              </a>
             </div>
             <div className="flex w-full flex-wrap justify-between gap-10">
               <a
@@ -100,10 +103,10 @@ export default function Home() {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. In aut eligendi
                     quibusdam temporibus mollitia, itaque nisi repellendus quae consectetur optio?
                   </p>
-                  <div className="flex justify-between">
+                  <div className="flex items-center justify-between">
                     <h4 className="text-red flex items-center font-bold">
                       <span className="material-symbols-outlined mr-1">timer</span>
-                      <p>12 hari</p>
+                      <p>12 hari lagi</p>
                     </h4>
                     <p className="text-sm font-medium">Hamba Allah</p>
                   </div>
