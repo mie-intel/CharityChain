@@ -84,7 +84,7 @@ export default function Detail() {
                 </p>
 
                 <div className="mt-5 flex h-3 w-full overflow-hidden rounded-full border-1 border-blue-500 shadow-md">
-                  <div className="w-1/3 bg-blue-500"></div>
+                  <div className="w-[25%] bg-blue-500"></div>
                 </div>
                 <p className="my-1 text-xl font-extrabold text-blue-500">Rp12.530.561</p>
                 <p>

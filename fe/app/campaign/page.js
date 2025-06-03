@@ -92,6 +92,11 @@ export default function Campaign() {
               </a>
             </div>
             <div className="flex w-full flex-wrap justify-between gap-10">
+              {/* {data.map((item) => {
+            return (
+              
+            );
+          })} */}
               <a
                 href="/campaign/detail"
                 className="group flex max-w-sm cursor-pointer flex-col overflow-hidden rounded-lg shadow-md transition-all duration-200 hover:bg-blue-50 hover:shadow-lg"
