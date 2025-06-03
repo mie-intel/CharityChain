@@ -9,8 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const nameRef = useRef(null);
-  const emailRef = useRef(null);
+  const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
   const [error, setError] = useState(null);
@@ -21,17 +20,13 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
 
   const handleSubmit = useCallback(async () => {
-    const name = nameRef.current?.value?.trim();
-    const email = emailRef.current?.value?.trim();
+    const username = usernameRef.current?.value?.trim();
+    const email = username + "@gmail.com"; // Assuming email is derived from username
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
 
     // Name validation
-    if (!name) {
-      setError("Name is required");
-      return;
-    }
-    if (name.length > 50) {
+    if (username.length > 50) {
       setError("Name cannot be more than 50 characters");
       return;
     }
@@ -75,7 +70,7 @@ export default function Page() {
     }
 
     // If all validations pass, call signUp
-    const signUpData = await signUp(name, email, password);
+    const signUpData = await signUp(username, email, password);
     if (signUpData.status === "error") {
       setError(prettyJson(signUpData.error));
       return;
@@ -85,11 +80,11 @@ export default function Page() {
     router.push("/sign-in");
   }, []);
 
-  // useEffect(() => {
-  //   setLoading(false);
-  // }, []);
-  // if (loading)
-  //   return <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />;
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+  if (loading)
+    return <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />;
 
   return (
     <>
@@ -100,8 +95,7 @@ export default function Page() {
               Register
             </h2>
             <div className="mt-6 flex w-full flex-col gap-4">
-              <InputWrapper ref={nameRef} icon={UserRoundPen} placeholder="Name" />
-              <InputWrapper ref={emailRef} icon={User} placeholder="Email" />
+              <InputWrapper ref={usernameRef} icon={UserRoundPen} placeholder="Username" />
               <InputWrapper ref={passwordRef} type="password" icon={Lock} placeholder="Password" />
               <InputWrapper
                 ref={confirmPasswordRef}
