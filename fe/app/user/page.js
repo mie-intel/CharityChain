@@ -5,6 +5,48 @@ export default function User() {
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       />
+      <nav className="bg-blue-dark/90 border-b-blue-navy fixed top-0 left-0 z-[99999] w-full border-b-1 backdrop-blur-sm">
+        <div className="container mx-auto flex items-center justify-between px-4 py-3">
+          <div className="flex flex-1/4 flex-col justify-center">
+            <a href="#hero" className="text-blue-500">
+              <h1 className="text-2xl font-extrabold">CharityChain</h1>
+              <p className="font-bold">Blockchain Based Tech.</p>
+            </a>
+          </div>
+
+          <div
+            className="bg-blue-dark text-peach border-blue-navy absolute top-20 -right-2 z-[9999] hidden w-2/3 flex-col overflow-hidden rounded-bl-xl border-1 transition-all duration-300 md:static md:flex md:w-auto md:flex-3/4 md:flex-row-reverse md:rounded-none md:border-none md:bg-transparent"
+            id="nav-menu"
+          >
+            <div className="flex flex-col items-center md:flex-row md:justify-between">
+              <a href="" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+                Campaign
+              </a>
+              <a href="/user" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+                Akun
+              </a>
+              <a
+                href="/sign-in"
+                className="px-4 py-5 text-blue-500 hover:scale-105 md:ml-7 md:p-0 md:font-bold"
+              >
+                Masuk
+              </a>
+              <a
+                href="/sign-up"
+                className="px-4 py-5 text-white hover:text-blue-500 md:ml-7 md:rounded-md md:bg-blue-500 md:px-3 md:py-1 md:font-bold md:text-white md:hover:bg-blue-500/90 md:hover:text-white"
+              >
+                Daftar
+              </a>
+            </div>
+          </div>
+
+          <div className="group flex flex-col hover:cursor-pointer md:hidden" id="nav-toggle">
+            <span className="nav-toggle origin-top-left transition-all duration-200"></span>
+            <span className="nav-toggle transition-all duration-200"></span>
+            <span className="nav-toggle origin-bottom-left transition-all duration-200"></span>
+          </div>
+        </div>
+      </nav>
       <section id="user" className="py-30 text-black">
         <div className="container mx-auto px-4">
           <h1 className="text-blue-dark mb-10 text-center text-4xl font-extrabold md:text-left">

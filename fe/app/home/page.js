@@ -19,7 +19,7 @@ export default function Home() {
             id="nav-menu"
           >
             <div className="flex flex-col items-center md:flex-row md:justify-between">
-              <a href="" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+              <a href="/home" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
                 Campaign
               </a>
               <a href="/user" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
