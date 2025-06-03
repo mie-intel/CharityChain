@@ -69,7 +69,7 @@ export default function Detail() {
                   Yuk, Donasi!
                 </h2>
                 <h3 className="mb-3 text-lg font-bold">Ringkasan Transaksi</h3>
-                <div class="flex justify-between">
+                <div className="flex justify-between">
                   <p>Donasi untuk teguh</p>
                   <p className="font-bold">x2</p>
                 </div>

@@ -22,30 +22,30 @@ export default function User() {
                 Kembali
               </a>
               <a href="" className="flex font-medium">
-                <span class="material-symbols-outlined mr-1">account_circle</span>
+                <span className="material-symbols-outlined mr-1">account_circle</span>
                 <p>Ubah Detail Akun</p>
               </a>
             </div>
-            <div class="flex">
+            <div className="flex">
               <div className="flex h-[128px] w-[128px] items-center justify-center overflow-hidden rounded-full shadow-lg">
                 <img
                   src="/anies-senyum.jpeg"
                   alt="Gambar Obat"
-                  class="h-full w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
               </div>
               <div className="flex-flex-col ml-[64px]">
                 <h2 className="mb-5 text-2xl font-extrabold">Garbharata Adji Tegoeh</h2>
-                <div class="mb-4 flex items-center text-lg">
-                  <span class="material-symbols-outlined">attach_money</span>
+                <div className="mb-4 flex items-center text-lg">
+                  <span className="material-symbols-outlined">attach_money</span>
                   <p className="mr-2 font-bold">Saldo:</p>
                   <span className="font-extrabold text-blue-500">ETH 20</span>
                 </div>
-                <div class="mb-3 flex flex-col">
+                <div className="mb-3 flex flex-col">
                   <h3>Address</h3>
                   <p className="font-medium">DSHD73B32DBSUPL</p>
                 </div>
-                <div class="mb-3 flex flex-col">
+                <div className="mb-3 flex flex-col">
                   <h3>Email</h3>
                   <p className="font-medium">teguhgantengbanget777@gmail.com</p>
                 </div>
