@@ -71,9 +71,9 @@ export default function Home() {
                   className="outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
                 />
               </form>
-              <div className="hover:text-blue-navy flex cursor-pointer hover:font-medium">
-                <span className="material-symbols-outlined"> filter_alt </span>
-                <p>Filter</p>
+              <div className="hover:text-blue-navy flex cursor-pointer rounded-md bg-blue-500 px-3 py-2 font-medium text-white">
+                <span className="material-symbols-outlined"> add </span>
+                <p>Tambah Campaign</p>
               </div>
             </div>
             <div className="flex w-full flex-wrap justify-between gap-10">
