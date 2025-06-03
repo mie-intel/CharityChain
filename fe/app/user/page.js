@@ -1,4 +1,21 @@
+"use client";
+
+import { createClient } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
+
 export default function User() {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const init = async () => {
+      const supabase = await createClient();
+      const { data: response } = await supabase.from("Users").select("*");
+      setData(response);
+    };
+
+    init();
+  }, []);
+
   return (
     <>
       <link
@@ -13,7 +30,11 @@ export default function User() {
               <p className="font-bold">Blockchain Based Tech.</p>
             </a>
           </div>
-
+          {data.map((item) => {
+            return (
+              
+            );
+          })}
           <div
             className="bg-blue-dark text-peach border-blue-navy absolute top-20 -right-2 z-[9999] hidden w-2/3 flex-col overflow-hidden rounded-bl-xl border-1 transition-all duration-300 md:static md:flex md:w-auto md:flex-3/4 md:flex-row-reverse md:rounded-none md:border-none md:bg-transparent"
             id="nav-menu"

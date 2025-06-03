@@ -93,7 +93,7 @@ export default function Campaign() {
             </div>
             <div className="flex w-full flex-wrap justify-between gap-10">
               <a
-                href="/campaign/view"
+                href="/campaign/detail"
                 className="group flex max-w-sm cursor-pointer flex-col overflow-hidden rounded-lg shadow-md transition-all duration-200 hover:bg-blue-50 hover:shadow-lg"
               >
                 <div className="h-[168px] overflow-hidden">

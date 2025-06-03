@@ -70,21 +70,26 @@ export default function Create() {
             </a>
             <h2 className="mb-7 text-lg font-bold">Masukkan Data Campaign</h2>
             <form action="">
-              <div className="mb-7 flex flex-col justify-between">
-                <label htmlFor="name" className="after:text-red font-medium after:content-['*']">
-                  Nama Campaign
-                </label>
-                <input
-                  type="name"
-                  name="name"
-                  id="name"
-                  placeholder="Dukung Pengamen Itu Agar Tidak Putus Sekolah"
-                  required
-                  className="border-b-1 py-1.5 outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
-                />
-              </div>
               <div className="flex">
-                <div className="flex flex-col justify-between">
+                <div className="flex w-1/3 flex-col justify-between">
+                  <label
+                    htmlFor="target"
+                    className="after:text-red font-medium after:content-['*']"
+                  >
+                    Judul Campaign
+                  </label>
+                  <div className="flex items-center">
+                    <input
+                      type="text"
+                      name="target"
+                      id="target"
+                      placeholder="Dukung Pengamen Itu Agar Tidak Putus Sekolah!"
+                      required
+                      className="w-full border-b-1 py-1.5 outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+                <div className="ml-7 flex flex-col justify-between">
                   <label
                     htmlFor="target"
                     className="after:text-red font-medium after:content-['*']"
@@ -122,6 +127,25 @@ export default function Create() {
                   </div>
                 </div>
               </div>
+              <div className="mt-7 flex flex-col justify-between">
+                <label htmlFor="desc" className="after:text-red font-medium after:content-['*']">
+                  Deskripsi Campaign
+                </label>
+                <textarea
+                  type="desc"
+                  name="desc"
+                  id="desc"
+                  required
+                  className="mt-2 rounded-md border-1 px-3 outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="mt-7 flex cursor-pointer items-center rounded-md bg-blue-500 px-3 py-1.5 font-medium text-white hover:bg-blue-400"
+              >
+                <span className="material-symbols-outlined"> add </span>
+                Tambah Campaign
+              </button>
             </form>
           </div>
         </div>
