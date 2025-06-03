@@ -8,7 +8,7 @@ export default function Campaign() {
       <nav className="bg-blue-dark/90 border-b-blue-navy fixed top-0 left-0 z-[99999] w-full border-b-1 backdrop-blur-sm">
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
           <div className="flex flex-1/4 flex-col justify-center">
-            <a href="#hero" className="text-blue-500">
+            <a href="/" className="text-blue-500">
               <h1 className="text-2xl font-extrabold">CharityChain</h1>
               <p className="font-bold">Blockchain Based Tech.</p>
             </a>
