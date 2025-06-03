@@ -56,21 +56,6 @@ export default function User() {
             Detail Akun
           </h1>
           <div className="flex flex-col overflow-hidden rounded-md px-10 py-10 shadow-md md:px-10 md:py-10">
-            <div className="mb-10 flex justify-between">
-              <a
-                href="/home"
-                className="group flex items-center transition-all duration-200 hover:font-bold"
-              >
-                <span className="material-symbols-outlined mr-1 transition-all duration-200 ease-in-out group-hover:-translate-x-3">
-                  arrow_back
-                </span>
-                Kembali
-              </a>
-              <a href="" className="flex font-medium">
-                <span className="material-symbols-outlined mr-1">account_circle</span>
-                <p>Ubah Detail Akun</p>
-              </a>
-            </div>
             <div className="flex">
               <div className="flex h-[128px] w-[128px] items-center justify-center overflow-hidden rounded-full shadow-lg">
                 <img

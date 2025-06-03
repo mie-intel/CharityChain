@@ -54,11 +54,11 @@ export default function Home() {
         <div className="container mx-auto h-full px-4">
           <div className="flex h-full flex-wrap items-center justify-between">
             <div className="w-full text-center lg:w-1/2 lg:text-left">
-              <h1 className="text-orange mb-3 pb-2 text-3xl font-extrabold md:mb-10 md:text-5xl xl:text-7xl">
-                Yuk, Berbagi Kebaikan Bersama CharityChain!
+              <h1 className="mb-3 pb-2 text-3xl font-extrabold md:mb-10 md:text-5xl xl:text-7xl">
+                Yuk, Berbagi Kebaikan Bersama <span className="text-blue-500">CharityChain</span>!
               </h1>
               <p className="text-peach mb-8 text-base font-normal md:mb-12 md:text-lg">
-                <a href="#hero" className="text-orange mr-1 text-xl font-bold">
+                <a href="/" className="mr-1 text-xl font-bold">
                   CharityChain
                 </a>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure accusamus corporis
@@ -68,7 +68,7 @@ export default function Home() {
               </p>
               <a
                 href="/campaign"
-                className="hover:bg-orange/80 rounded-full bg-blue-500 px-7 py-3 text-base font-semibold text-white transition duration-200 active:opacity-80"
+                className="rounded-full bg-blue-500 px-7 py-3 text-base font-semibold text-white transition duration-200 hover:bg-blue-400 active:opacity-80"
               >
                 Cek Campaign
               </a>

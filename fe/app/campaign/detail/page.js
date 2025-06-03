@@ -8,7 +8,7 @@ export default function Detail() {
       <nav className="bg-blue-dark/90 border-b-blue-navy fixed top-0 left-0 z-[99999] w-full border-b-1 backdrop-blur-sm">
         <div className="container mx-auto flex items-center justify-between px-4 py-3">
           <div className="flex flex-1/4 flex-col justify-center">
-            <a href="#hero" className="text-blue-500">
+            <a href="/" className="text-blue-500">
               <h1 className="text-2xl font-extrabold">CharityChain</h1>
               <p className="font-bold">Blockchain Based Tech.</p>
             </a>
@@ -19,7 +19,10 @@ export default function Detail() {
             id="nav-menu"
           >
             <div className="flex flex-col items-center md:flex-row md:justify-between">
-              <a href="/home" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+              <a href="/" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
+                Beranda
+              </a>
+              <a href="/campaign" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
                 Campaign
               </a>
               <a href="/user" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
@@ -54,13 +57,13 @@ export default function Detail() {
           </h1>
           <div className="flex flex-col overflow-hidden rounded-md px-4 py-7 shadow-md md:px-10 md:py-10">
             <a
-              href="/home"
+              href="/campaign"
               className="group flex items-center transition-all duration-200 hover:font-bold"
             >
               <span className="material-symbols-outlined mr-1 transition-all duration-200 ease-in-out group-hover:-translate-x-3">
                 arrow_back
               </span>
-              Kembali
+              Kembali ke Campaign
             </a>
             <div className="mt-10 flex items-start gap-15">
               <div className="flex w-1/4 flex-col overflow-hidden rounded-lg shadow-md">

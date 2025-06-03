@@ -60,6 +60,15 @@ export default function Campaign() {
             Seberapun yang kamu berikan, akan sangat berharga bagi mereka yang membutuhkan!
           </p>
           <div className="flex flex-col overflow-hidden rounded-md px-4 py-7 shadow-md md:px-10 md:py-10">
+            <a
+              href="/"
+              className="group mb-7 flex items-center transition-all duration-200 hover:font-bold"
+            >
+              <span className="material-symbols-outlined mr-1 transition-all duration-200 ease-in-out group-hover:-translate-x-3">
+                arrow_back
+              </span>
+              Kembali ke Beranda
+            </a>
             <div className="mb-10 flex w-full justify-between">
               <form action="#" className="flex">
                 <label htmlFor="search" className="flex items-center">
@@ -84,15 +93,17 @@ export default function Campaign() {
             </div>
             <div className="flex w-full flex-wrap justify-between gap-10">
               <a
-                href="/home/view"
-                className="flex max-w-sm cursor-pointer flex-col overflow-hidden rounded-lg shadow-md transition-all duration-200 hover:scale-101 hover:bg-blue-50 hover:shadow-lg"
+                href="/campaign/view"
+                className="group flex max-w-sm cursor-pointer flex-col overflow-hidden rounded-lg shadow-md transition-all duration-200 hover:bg-blue-50 hover:shadow-lg"
               >
-                <img
-                  src="/donate-bg.jpg"
-                  alt="Gambar Obat"
-                  className="h-1/3 w-full bg-center object-cover"
-                />
-                <div className="flex flex-col justify-center px-5 py-4 md:px-7">
+                <div className="h-[168px] overflow-hidden">
+                  <img
+                    src="/donate-bg.jpg"
+                    alt="Gambar Obat"
+                    className="w-full origin-bottom bg-center object-cover transition-all duration-200 group-hover:scale-110"
+                  />
+                </div>
+                <div className="flex flex-col justify-center px-5 pt-8 pb-7 md:px-7">
                   <h2 className="mb-3 text-lg font-bold">Dukung Teguh Beli Hewan Kurban!</h2>
                   <div className="flex flex-col">
                     <h3 className="text-blue-dark text-xl font-extrabold text-blue-500">
