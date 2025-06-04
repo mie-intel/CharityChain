@@ -51,7 +51,7 @@ export default function Page() {
     if (data.status === "success") {
       setError(null);
     }
-    router.refresh();
+    window.location.reload();
     router.push("/home");
   }, []);
 
@@ -82,7 +82,7 @@ export default function Page() {
             <p className="font-eudoxus-bold text-sm text-white lg:mt-3 lg:text-xl">
               New Here?{" "}
               <span className="text-[#213356] duration-500 hover:text-[#F5C45E]">
-                <Link href="/sign-up">Create Account</Link>
+                <Link href="/auth/sign-up">Create Account</Link>
               </span>
             </p>
           </Container>

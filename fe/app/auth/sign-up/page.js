@@ -67,16 +67,14 @@ export default function Page() {
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       return;
-    }
-
-    // If all validations pass, call signUp
+    } // If all validations pass, call signUp
     const signUpData = await signUp(username, email, password);
     if (signUpData.status === "error") {
       setError(prettyJson(signUpData.error));
       return;
     }
     setError(null);
-    router.refresh();
+    window.location.reload();
     router.push("/sign-in");
   }, []);
 
@@ -113,7 +111,7 @@ export default function Page() {
             <p className="font-eudoxus-bold text-sm text-white lg:mt-3 lg:text-xl">
               Already have an account?{" "}
               <span className="text-[#213356] duration-500 hover:text-[#F5C45E]">
-                <Link href="/sign-in">Sign In</Link>
+                <Link href="/auth/sign-in">Sign In</Link>
               </span>
             </p>
           </Container>

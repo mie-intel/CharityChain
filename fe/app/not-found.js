@@ -23,7 +23,7 @@ export default function NotFound() {
         <h1 className="text-9xl font-extrabold">404</h1>
         <p className="my-5 text-2xl font-medium">Halaman Tidak Ditemukan!</p>
         <a
-          href="/"
+          href="/home"
           className="rounded-lg py-3 text-center text-lg font-bold text-blue-400 hover:text-blue-500"
         >
           Kembali ke Beranda
