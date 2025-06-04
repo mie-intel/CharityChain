@@ -71,7 +71,7 @@ export default function Create() {
             <h2 className="mb-7 text-lg font-bold">Masukkan Data Campaign</h2>
             <form action="">
               <div className="flex">
-                <div className="flex w-1/3 flex-col justify-between">
+                <div className="flex w-1/2 flex-col justify-between">
                   <label
                     htmlFor="target"
                     className="after:text-red font-medium after:content-['*']"
@@ -99,7 +99,7 @@ export default function Create() {
                   <div className="flex items-center">
                     <p className="mr-2 font-bold text-blue-500">ETH</p>
                     <input
-                      type="text"
+                      type="number"
                       name="target"
                       id="target"
                       placeholder="200"
@@ -127,7 +127,7 @@ export default function Create() {
                   </div>
                 </div>
               </div>
-              <div className="mt-7 flex flex-col justify-between">
+              {/* <div className="mt-7 flex flex-col justify-between">
                 <label htmlFor="desc" className="after:text-red font-medium after:content-['*']">
                   Deskripsi Campaign
                 </label>
@@ -138,7 +138,7 @@ export default function Create() {
                   required
                   className="mt-2 rounded-md border-1 px-3 outline-none hover:border-blue-500 focus:border-b-2 focus:border-blue-500"
                 ></textarea>
-              </div>
+              </div> */}
               <button
                 type="submit"
                 className="mt-7 flex cursor-pointer items-center rounded-md bg-blue-500 px-3 py-1.5 font-medium text-white hover:bg-blue-400"
