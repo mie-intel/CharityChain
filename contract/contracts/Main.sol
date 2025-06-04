@@ -17,8 +17,7 @@ library Date {
 
 contract Main {
     struct Campaign {
-        string userId;
-        address user;
+        address owner;
         string title;
         uint duration;
         uint startTime;
@@ -28,31 +27,40 @@ contract Main {
     }
     
     struct User {
-        string userId;
+        address userId;
         uint[] campaigns;
         uint balance;
     }
     
     mapping(uint => Campaign) public campaigns;
-    mapping(string => User) users;
-    mapping(string => bool) public userExists;
-    string[] public allUserIds;
+    mapping(address => User) users;
+    mapping(address => bool) public userExists;
+    address[] public allUserIds;
     
     uint public totalCampaignsCount = 0;
     
-    event UserCreated(string indexed userId, address indexed userAddress, uint initialBalance, uint timestamp);
-    event UserBalanceUpdated(string indexed userId, address indexed userAddress, uint newBalance, uint amount, string action, uint timestamp);
-    event CampaignCreated(uint indexed campaignId, string indexed userId, address indexed creator, string title, uint target, uint duration, uint startTime);
-    event CampaignFinished(uint indexed campaignId, string indexed userId, address indexed creator, string reason, uint finalMilestone, uint timestamp);
-    event DonationMade(uint indexed campaignId, string indexed donorUserId, address indexed donorAddress, uint amount, uint newMilestone, uint targetProgress, uint timestamp);
-    event CampaignWithdrawal(uint indexed campaignId, string indexed userId, address indexed userAddress, uint amount, uint remainingMilestone, uint timestamp);
-    event MilestoneReached(uint indexed campaignId, string indexed userId, uint milestone, uint target, bool campaignCompleted, uint timestamp);
+    event UserCreated(address indexed userId, address indexed userAddress, uint initialBalance, uint timestamp);
+    event UserBalanceUpdated(address indexed userId, address indexed userAddress, uint newBalance, uint amount, string action, uint timestamp);
+    event CampaignCreated(uint indexed campaignId, address indexed creator, string title, uint target, uint duration, uint startTime);
+    event CampaignFinished(uint indexed campaignId, address indexed creator, string reason, uint finalMilestone, uint timestamp);
+    event DonationMade(uint indexed campaignId, address indexed donorUserId, address indexed donorAddress, uint amount, uint newMilestone, uint targetProgress, uint timestamp);
+    event CampaignWithdrawal(uint indexed campaignId, address indexed userId, address indexed userAddress, uint amount, uint remainingMilestone, uint timestamp);
+    event MilestoneReached(uint indexed campaignId, address indexed userId, uint milestone, uint target, bool campaignCompleted, uint timestamp);
     
-    function createUser(string memory userId, uint initialBalance) public {
+    function createManyUsers(address[] memory userIds, uint initialBalance) public {
+        console.log("createManyUsers called with initialBalance:", initialBalance);
+        for (uint i = 0; i < userIds.length; i++) {
+            address userId = userIds[i];
+            console.log("Creating user with ID:", userId);
+            createUser(userId, initialBalance);
+        }
+    }
+
+    function createUser(address userId, uint initialBalance) public {
         console.log("createUser called with userId:", userId, "initialBalance:", initialBalance);
         console.log("Checking if user exists...");
         require(!userExists[userId], "User already exists");
-        require(bytes(userId).length > 0, "User ID cannot be empty");
+        require(userId != address(0), "User ID cannot be empty");
 
         console.log("Creating new user...");
         users[userId] = User({
@@ -82,7 +90,7 @@ contract Main {
         console.log("Fallback function called with value:");
     }
 
-    function topUpUser(string memory userId, uint amount) public {
+    function topUpUser(address userId, uint amount) public {
         console.log("topUpUser called for userId:", userId, "amount:", amount);
         require(userExists[userId], "User does not exist");
         require(amount > 0, "Amount must be greater than 0");
@@ -94,7 +102,7 @@ contract Main {
         emit UserBalanceUpdated(userId, msg.sender, users[userId].balance, amount, "topup", block.timestamp);
     }
 
-    function withDraw(string memory userId, uint amount) public {
+    function withDraw(address userId, uint amount) public {
         console.log("withDraw called for userId:", userId, "amount:", amount);
         require(userExists[userId], "User does not exist");
         require(amount > 0, "Amount must be greater than 0");
@@ -115,7 +123,7 @@ contract Main {
         Campaign storage campaign = campaigns[campaignId];
         
         console.log("Checking campaign ownership...");
-        require(campaign.user == msg.sender, "Only campaign owner can withdraw");
+        require(campaign.owner == msg.sender, "Only campaign owner can withdraw");
         require(!campaign.finished, "Campaign already finished");
         require(amount > 0 && amount <= campaign.milestone, "Invalid withdrawal amount");
         
@@ -123,10 +131,10 @@ contract Main {
         campaign.milestone -= amount;
         console.log("New milestone after withdrawal:", campaign.milestone);
         
-        emit CampaignWithdrawal(campaignId, campaign.userId, msg.sender, amount, campaign.milestone, block.timestamp);
+        emit CampaignWithdrawal(campaignId, campaign.owner, msg.sender, amount, campaign.milestone, block.timestamp);
     }
 
-    function donate(string memory userId, uint campaignId, uint amount) public {
+    function donate(address userId, uint campaignId, uint amount) public {
         // console.log("donate called by userId:", "to campaignId:", campaignId, "amount:", amount);
         require(userExists[userId], "User does not exist");
         require(campaignId > 0 && campaignId <= totalCampaignsCount, "Invalid campaign ID");
@@ -153,7 +161,7 @@ contract Main {
         
         if (campaign.milestone != oldMilestone) {
             console.log("Milestone changed, emitting event...");
-            emit MilestoneReached(campaignId, campaign.userId, campaign.milestone, campaign.target, campaign.finished, block.timestamp);
+            emit MilestoneReached(campaignId, campaign.owner, campaign.milestone, campaign.target, campaign.finished, block.timestamp);
         }
     }
 
@@ -170,17 +178,17 @@ contract Main {
             console.log("Target reached! Finishing campaign...");
             campaign.finished = true;
             
-            emit CampaignFinished(campaignId, campaign.userId, campaign.user, "target_reached", campaign.milestone, block.timestamp);
+            emit CampaignFinished(campaignId, campaign.owner, "target_reached", campaign.milestone, block.timestamp);
         }
     }
 
-    function getUser(string memory userId) public view returns (User memory) {
+    function getUser(address userId) public view returns (User memory) {
         console.log("getUser called for userId:", userId);
         require(userExists[userId], "User does not exist");
         return users[userId];
     }
     
-    function getUserCampaignStats(string memory userId) public view returns (uint total, uint active, uint finished) {
+    function getUserCampaignStats(address userId) public view returns (uint total, uint active, uint finished) {
         console.log("getUserCampaignStats called for userId:", userId);
         require(userExists[userId], "User does not exist");
         
@@ -199,7 +207,7 @@ contract Main {
         }
     }
     
-    function createCampaign(string memory userId, string memory title, uint duration, uint target, uint milestone) public {
+    function createCampaign(address userId, string memory title, uint duration, uint target, uint milestone) public {
         console.log("createCampaign called by userId:", userId, "title:", title);
         require(userExists[userId], "User does not exist");
         require(duration > 0, "Duration must be greater than 0");
@@ -211,8 +219,7 @@ contract Main {
         console.log("Creating new campaign with ID:", campaignId);
         
         campaigns[campaignId] = Campaign({
-            userId: userId,
-            user: msg.sender,
+            owner: userId,
             title: title,
             duration: duration,
             startTime: block.timestamp,
@@ -224,13 +231,13 @@ contract Main {
         users[userId].campaigns.push(campaignId);
         console.log("Campaign created successfully. Total campaigns now:", totalCampaignsCount);
         
-        emit CampaignCreated(campaignId, userId, msg.sender, title, target, duration, block.timestamp);
+        emit CampaignCreated(campaignId, userId, title, target, duration, block.timestamp);
     }
     
     function finishCampaign(uint campaignId) public {
         console.log("finishCampaign called for campaignId:", campaignId);
         require(campaignId > 0 && campaignId <= totalCampaignsCount, "Invalid campaign ID");
-        require(campaigns[campaignId].user == msg.sender, "Only campaign owner can finish");
+        require(campaigns[campaignId].owner == msg.sender, "Only campaign owner can finish");
         require(!campaigns[campaignId].finished, "Campaign already finished");
         
         Campaign storage campaign = campaigns[campaignId];
@@ -243,7 +250,7 @@ contract Main {
             console.log("Campaign expired");
         }
         
-        emit CampaignFinished(campaignId, campaign.userId, msg.sender, reason, campaign.milestone, block.timestamp);
+        emit CampaignFinished(campaignId, campaign.owner, reason, campaign.milestone, block.timestamp);
     }
     
     function isCampaignExpired(uint campaignId) public view returns (bool) {
@@ -256,9 +263,9 @@ contract Main {
         return expired;
     }
     
-    function getAllCampaigns(string memory userId) public view returns (Campaign[] memory) {
+    function getAllCampaigns(address userId) public view returns (Campaign[] memory) {
         console.log("getAllCampaigns called for userId:", userId);
-        if (bytes(userId).length == 0) {
+        if ((userId) != address(0)) {
             console.log("No userId provided, returning all campaigns");
             return getAllCampaignsGlobal();
         }
@@ -287,7 +294,7 @@ contract Main {
         return allCampaigns;
     }
     
-    function getCampaignsByStatus(string memory userId, bool finished) public view returns (Campaign[] memory) {
+    function getCampaignsByStatus(address userId, bool finished) public view returns (Campaign[] memory) {
         console.log("getCampaignsByStatus called for userId:", userId, "finished:", finished);
         Campaign[] memory allUserCampaigns = getAllCampaigns(userId);
         
