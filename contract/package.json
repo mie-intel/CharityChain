@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "hardhat node",
+    "test": "hardhat test",
+    "coverage": "hardhat coverage",
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "verify": "hardhat verify --network localhost"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
     "@nomicfoundation/hardhat-ethers": "^3.0.0",
@@ -21,6 +29,7 @@
     "typechain": "^8.3.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.9",
     "dotenv": "^16.5.0",
     "prettier": "^3.5.3"
   }

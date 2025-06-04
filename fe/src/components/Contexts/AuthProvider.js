@@ -9,25 +9,8 @@ import { getAddressFromUserId } from "@/utils/getAddress";
 
 const AuthContext = createContext();
 
-const isLocal = true;
 const AuthProvider = ({ children }) => {
   const supabase = createClient();
-
-  useEffect(() => {
-    const initializeContract = async () => {
-      const { contract, account } = await useContract();
-      const userData = await supabase.from("Users").select("*");
-      console.log("Contract initialized:", contract);
-      const userIdList = userData.data.map((user) => getAddressFromUserId(user.uid));
-      const transaction = await contract.createManyUsers(userIdList, 0);
-      console.log("Users created in contract:", userIdList);
-      console.log("Account:", account);
-      await transaction.wait();
-      console.log("Transaction hash:", transaction.hash);
-    };
-
-    if (isLocal) initializeContract();
-  }, []);
 
   // create a new user
   const signUp = async (username, email, password) => {
