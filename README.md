@@ -25,18 +25,15 @@ CharityChain is a decentralized charity platform built on Ethereum that allows u
 CharityChain/
 ├── contract/                   # Smart contract workspace
 │   ├── contracts/             # Smart contract files
-│   │   ├── CharityChain.sol   # Main charity contract
-│   │   └── Campaign.sol       # Campaign management
-│   ├── ignition/              # Deployment scripts
-│   ├── scripts/               # Utility scripts
-│   └── test/                  # Contract tests
+│   │   ├── Main.sol            # Main charity contract
+│   ├── scripts/               # Deployment Scripts
 └── fe/                        # Frontend application
-    ├── app/                   # Application logic
+    ├── app/                   # Application routes
     ├── src/                   # Source code
     │   ├── components/        # React components
     │   ├── contracts/         # Contract ABIs
     │   ├── utils/            # Utility functions
-    │   └── pages/            # Application pages
+    │   └── styles/            # CSS Styling
     └── public/               # Static assets
 ```
 
@@ -61,6 +58,7 @@ cd CharityChain
 
 ```bash
 # Install smart contract dependencies
+cd contract
 npm install
 
 # Install frontend dependencies (if separate folder)
