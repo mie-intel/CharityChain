@@ -378,7 +378,7 @@ export default function Campaign() {
           </p>
           <div className="flex flex-col overflow-hidden rounded-md px-4 py-7 shadow-md md:px-10 md:py-10">
             <a
-              href="/"
+              href="/home"
               className="group mb-7 flex items-center transition-all duration-200 hover:font-bold"
             >
               <span className="material-symbols-outlined mr-1 transition-all duration-200 ease-in-out group-hover:-translate-x-3">
@@ -401,7 +401,7 @@ export default function Campaign() {
                 />
               </form>
               <a
-                href="/campaign/create"
+                href="/home/campaign/create"
                 className="hover:text-blue-navy flex cursor-pointer rounded-md bg-blue-500 px-3 py-2 font-medium text-white hover:bg-blue-400"
               >
                 <span className="material-symbols-outlined"> add </span>

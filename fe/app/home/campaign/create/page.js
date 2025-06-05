@@ -82,7 +82,7 @@ export default function Create() {
 
           <div className="flex flex-col overflow-hidden rounded-md px-10 py-10 shadow-md md:px-10 md:py-10">
             <a
-              href="/campaign"
+              href="/home/campaign"
               className="group mb-7 flex items-center transition-all duration-200 hover:font-bold"
             >
               <span className="material-symbols-outlined mr-1 transition-all duration-200 ease-in-out group-hover:-translate-x-3">
