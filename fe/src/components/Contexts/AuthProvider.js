@@ -49,11 +49,11 @@ const AuthProvider = ({ children }) => {
         // console.log("Insert error:", error.message);
       }
 
-      const { data: usersData } = await supabase.from("Users").select("*");
+      // const { data: usersData } = await supabase.from("Users").select("*");
       // console.log("response", usersData);
 
-      let transaction2 = await contract.getAllUser();
-      await transaction2.wait();
+      // let transaction2 = await contract.getAllUser();
+      // await transaction2.wait();
       // console.log("Transaction2 sent:", transaction2.hash);
     }
 
