@@ -18,5 +18,5 @@ export const NETWORK_CONFIG = {
     },
     rpcUrls: ["https://sepolia.infura.io/v3/", "https://eth-sepolia.g.alchemy.com/v2/"],
     blockExplorerUrls: ["https://sepolia.etherscan.io/"],
-  }
+  },
 };

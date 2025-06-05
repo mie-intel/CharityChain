@@ -99,6 +99,7 @@ contract Main {
         return string(buffer);
     }
 
+    // Creates multiple users in a single transaction
     function createManyUsers(address[] memory userIds, int256[] memory initialBalance) public {
         for (uint i = 0; i < userIds.length; i++) {
             address userId = userIds[i];
@@ -112,6 +113,7 @@ contract Main {
         console.log("END: createManyUsers finished.");
     }
 
+    // Creates a single user
     function createUser(address userId, int256 initialBalance) public {
         require(!userExists[userId], "User already exists");
         require(userId != address(0), "User ID cannot be the zero address");
@@ -131,20 +133,12 @@ contract Main {
         console.log("END: createUser for %s finished.", userId);
     }
 
-    // function getAllUserStructs() public view returns (User[] memory) {
-    //     console.log("START: getAllUserStructs called. Total users to fetch: %d", allUserIds.length);
-    //     User[] memory allUsersArray = new User[](allUserIds.length);
-    //     for (uint i = 0; i < allUserIds.length; i++) {
-    //         allUsersArray[i] = users[allUserIds[i]];
-    //     }
-    //     console.log("END: getAllUserStructs finished. Returning %d user structs.", allUsersArray.length);
-    //     return allUsersArray;
-    // }
-
+    //  Fallback function to handle unexpected calls
     fallback() external{
         console.log("Fallback function triggered by:");
     }
 
+    // Top up user balance
     function topUpUser(address userId, int256 amount) public {
         require(userExists[userId], "User does not exist");
         require(amount > 0, "Amount must be greater than 0");
@@ -155,20 +149,7 @@ contract Main {
         console.log("END: topUpUser for %s finished.", userId);
     }
 
-    // function withDrawUserBalance(address userId, int256 amount) public {
-    //     require(userExists[userId], "User does not exist");
-    //     require(amount > 0, "Amount must be greater than 0");
-        
-    //     User storage user = users[userId];
-    //     require(user.balance >= amount, "Insufficient balance");
-
-        
-    //     user.balance -= amount;
-        
-    //     emit UserBalanceUpdated(userId, msg.sender, user.balance, amount, "withdraw_balance", Date.getCurrentTimestamp());
-    //     console.log("END: withDrawUserBalance for %s finished.", userId);
-    // }
-
+    // Withdraw from a campaign after it has finished
     function withDrawFromCampaign(address campaignId, address userId, int256 amount) public {
         require(campaignExists[campaignId], "Campaign does not exist");
         Campaign storage campaign = campaigns[campaignId];
@@ -185,6 +166,7 @@ contract Main {
         console.log("END: withDrawFromCampaign for campaign %s finished.", campaignId);
     }
 
+    //  Donate to a campaign
     function donate(address donorUserId, address campaignId, int256 amount) public {
         require(userExists[donorUserId], "Donor user does not exist");
         require(campaignExists[campaignId], "Campaign does not exist");
@@ -197,8 +179,6 @@ contract Main {
         require(donorUser.balance > amount, "Insufficient balance for donation");
         require(!campaign.finished, "Campaign already finished");
 
-        // console.log(donorUser.balance);
-        // console.log(amount);
 
         console.log("Processing donation for campaign %s from user %s...", campaignId, donorUserId);
         donorUser.balance -= amount;
@@ -223,6 +203,7 @@ contract Main {
         console.log("END: donate for campaign %s by user %s finished.", campaignId, donorUserId);
     }
 
+    // Internal function to update campaign milestone and check if target is reached
     function updateCampaignMilestone(address campaignId, int256 amountToIncrease) internal {
         Campaign storage campaign = campaigns[campaignId];
         campaign.milestone += amountToIncrease;
@@ -238,36 +219,15 @@ contract Main {
         console.log("INTERNAL END: updateCampaignMilestone for campaign %s.", campaignId);
     }
 
+    // Get all user IDs
     function getUser(address userId) public view returns (User memory) {
         console.log("START: getUser called. UserID: %s", userId);
         require(userExists[userId], "User does not exist");
         console.log("END: getUser for %s. Returning user data.", userId);
         return users[userId];
     }
-    
-    // function getUserCampaignStats(address userId) public view returns (uint total, uint active, uint finishedCount) {
-    //     console.log("START: getUserCampaignStats called. UserID: %s", userId);
-    //     require(userExists[userId], "User does not exist");
-        
-    //     address[] memory userCampaignIds = users[userId].campaigns;
-    //     total = userCampaignIds.length;
-    //     console.log("User %s has %d campaigns in their list.", userId, total);
-        
-    //     for (uint i = 0; i < userCampaignIds.length; i++) {
-    //         address currentCampaignId = userCampaignIds[i];
-    //         if (campaignExists[currentCampaignId]) {
-    //              if (campaigns[currentCampaignId].finished) {
-    //                 finishedCount++;
-    //             } else {
-    //                 active++;
-    //             }
-    //         } else {
-    //             console.log("Warning: Campaign ID %s found in user %s's list but does not exist in global campaigns mapping.", currentCampaignId, userId);
-    //         }
-    //     }
-    //     return (total, active, finishedCount);
-    // }
-    
+
+    // Get all user IDs
     struct CampaignInput {
         address campaignId;
         address ownerUserId;
@@ -277,6 +237,7 @@ contract Main {
         int256 initialMilestone;
     }
 
+    // Creates multiple campaigns in a single transaction
     function createManyCampaigns(CampaignInput[] memory campaignInputs) public {
         console.log("START: createManyCampaigns called. Number of campaigns to create: %d", campaignInputs.length);
         require(campaignInputs.length > 0, "Campaign inputs array cannot be empty");
@@ -320,6 +281,7 @@ contract Main {
         console.log("END: createManyCampaigns finished. Total campaigns created: %d", campaignInputs.length);
     }
 
+    // Creates a single campaign
     function createCampaign(address campaignId, address ownerUserId, string memory title, uint durationSeconds, int256 targetAmount, int256 initialMilestone) public {
         require(userExists[ownerUserId], "Owner user does not exist");
         require(campaignId != address(0), "Campaign ID cannot be zero address");
@@ -348,34 +310,8 @@ contract Main {
         console.log("END: createCampaign for campaign %s finished.", campaignId);
     }
     
-    // function finishCampaignManually(address campaignId) public {
-    //     console.log("START: finishCampaignManually called. CampaignID: %s, Caller: %s", campaignId, msg.sender);
-    //     require(campaignExists[campaignId], "Campaign does not exist");
-    //     Campaign storage campaign = campaigns[campaignId];
 
-    //     require(!campaign.finished, "Campaign already finished");
-        
-    //     campaign.finished = true;
-    //     console.log("Campaign %s marked as finished manually by owner %s.", campaignId, msg.sender);
-        
-    //     string memory reason = "manual_finish";
-    //     if (isCampaignExpired(campaignId)) {
-    //         reason = "manual_finish_expired";
-    //         console.log("Campaign %s was also expired at time of manual finish.", campaignId);
-    //     }
-        
-    //     emit CampaignFinished(campaignId, campaign.owner, reason, campaign.milestone, Date.getCurrentTimestamp());
-    //     console.log("END: finishCampaignManually for campaign %s finished.", campaignId);
-    // }
-    
-    // function isCampaignExpired(address campaignId) public view returns (bool) {
-    //     require(campaignExists[campaignId], "Campaign does not exist");
-        
-    //     Campaign memory campaign = campaigns[campaignId];
-    //     bool expired = (Date.getCurrentTimestamp() >= (campaign.startTime + campaign.duration));
-    //     return expired;
-    // }
-
+    // Get all campaigns globally
     function getAllCampaignsGlobal() public view returns (CampaignWithId[] memory) {
         console.log("START: getAllCampaignsGlobal called. Total unique campaign IDs tracked: %d", allCampaignIds.length);
         CampaignWithId[] memory allCampaignsArray = new CampaignWithId[](allCampaignIds.length);
@@ -400,6 +336,7 @@ contract Main {
         return allCampaignsArray;
     }
     
+    // Get a specific campaign by its ID
     function getCampaign(address campaignId) public view returns (Campaign memory) {
         console.log("START: getCampaign called. CampaignID: %s", campaignId);
         require(campaignExists[campaignId], "Campaign does not exist");
@@ -407,20 +344,4 @@ contract Main {
         return campaigns[campaignId];
     }
     
-    // function getCampaignProgress(address campaignId) public view returns (int256 percentage) { // Returns e.g. 5025 for 50.25%
-    //     console.log("START: getCampaignProgress called. CampaignID: %s", campaignId);
-    //     require(campaignExists[campaignId], "Campaign does not exist");
-    //     Campaign memory campaign = campaigns[campaignId];
-        
-    //     if (campaign.target == 0) {
-    //         console.log("Campaign %s target is 0, returning 0% progress.", campaignId);
-    //         return 0;
-    //     }
-        
-    //     percentage = (campaign.milestone * 10000) / campaign.target;
-    //     if (percentage > 10000) {
-    //          percentage = 10000; // Cap at 100.00%
-    //     }
-    //     return percentage;
-    // }
 }

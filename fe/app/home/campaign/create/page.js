@@ -40,9 +40,7 @@ export default function Create() {
     }
 
     const userData = await getCurrentUser();
-    console.log("User Data", userData);
     const response = await createCampaign(title, target, userData.address, duration);
-    console.log("Response", response);
     if (response.status === "error") {
       setError(response.message);
       setSuccess(null);

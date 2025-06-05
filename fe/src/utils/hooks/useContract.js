@@ -27,15 +27,10 @@ export const useContract = async () => {
     method: "eth_requestAccounts",
   });
 
-  // console.log("Connected accounts:", accounts);
-
   // Check current network
   const currentChainId = await window.ethereum.request({
     method: "eth_chainId",
   });
-
-  // console.log("Current chain ID:", currentChainId);
-  // console.log("Expected Sepolia chain ID:", SEPOLIA_NETWORK.chainId);
 
   // Switch to Sepolia if not already connected
   if (currentChainId !== SEPOLIA_NETWORK.chainId) {
@@ -49,7 +44,6 @@ export const useContract = async () => {
       // This error code indicates that the chain has not been added to MetaMask
       if (switchError.code === 4902) {
         try {
-          // console.log("Adding Sepolia network to MetaMask...");
           await window.ethereum.request({
             method: "wallet_addEthereumChain",
             params: [SEPOLIA_NETWORK],
@@ -66,21 +60,13 @@ export const useContract = async () => {
   }
 
   const provider = new ethers.BrowserProvider(window.ethereum);
-  // console.log("Provider initialized:", provider);
 
   const signer = await provider.getSigner();
-  // console.log("Signer obtained:", signer);
 
   // Get user address
   const userAddress = await signer.getAddress();
-  // console.log("User address:", userAddress);
 
   const contract = new ethers.Contract(contractAddress, contractABI, signer);
-  // console.log("Contract initialized:", contract);
-
-  // console.log("useContract - Contract:", contract);
-  // console.log("useContract - Account:", accounts);
-  // console.log("useContract - Network: Sepolia Testnet");
 
   return {
     contract,

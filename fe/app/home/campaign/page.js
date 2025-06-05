@@ -36,7 +36,6 @@ const Modal = ({ isOpen, onClose, campaign, user }) => {
 
     try {
       const userAddress = user.address;
-      console.log("User Address m2", userAddress);
       const result = await donate(
         userAddress, // donorUserId (address)
         campaign.id, // campaignId
@@ -333,7 +332,7 @@ export default function Campaign() {
       const supabase = createClient();
       const response = await getCampaign();
       const { data: supabaseData } = await supabase.from("Users").select("*");
-      console.log("Supabase Data", supabaseData);
+
       const responseData = response.map((item) => ({
         ...item,
         username:
