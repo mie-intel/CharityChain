@@ -51,8 +51,8 @@ export default function Page() {
     if (data.status === "success") {
       setError(null);
     }
-    window.location.reload();
     router.push("/home");
+    // window.location.reload();
   }, []);
 
   useEffect(() => {

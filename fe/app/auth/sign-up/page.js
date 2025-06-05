@@ -74,8 +74,8 @@ export default function Page() {
       return;
     }
     setError(null);
-    window.location.reload();
-    router.push("/sign-in");
+    router.push("/auth/sign-in");
+    // window.location.reload();
   }, []);
 
   useEffect(() => {

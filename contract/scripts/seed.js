@@ -15,8 +15,9 @@ const seedData = async (contract) => {
     const userIdList = userData.data.map((user) =>
       getAddressFromUserId(user.uid)
     );
-    const transaction = await contract.createManyUsers(userIdList, 0);
-    console.log("Users created in contract:", userIdList);
+    const balanceList = userData.data.map((user) => user.balance);
+    const transaction = await contract.createManyUsers(userIdList, balanceList);
+    console.log("Users created in contract:", userIdList, balanceList);
     await transaction.wait();
     console.log("Transaction hash:", transaction.hash);
     console.log("Seed successfully in the contract");

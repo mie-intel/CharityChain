@@ -85,7 +85,7 @@ export default function User() {
             <div className="flex">
               <div className="flex h-[128px] w-[128px] items-center justify-center overflow-hidden rounded-full shadow-lg">
                 <img
-                  src="/anies-senyum.jpeg"
+                  src="/anies-senyum2.png"
                   alt="Gambar Obat"
                   className="h-full w-full object-cover"
                 />
