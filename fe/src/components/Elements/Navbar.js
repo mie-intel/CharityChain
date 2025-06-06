@@ -2,10 +2,13 @@
 
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../Contexts/AuthProvider";
+import { useRouter } from "next/navigation";
 
 export const Navbar = () => {
   const [user, setUser] = useState({ balance: 0 });
   const { getCurrentUser, signOut } = useContext(AuthContext);
+
+  const router = useRouter();
 
   useEffect(() => {
     const init = async () => {
@@ -18,6 +21,7 @@ export const Navbar = () => {
 
   const handleLogout = async () => {
     await signOut();
+    router.push("/auth/sign-in");
   };
 
   return (

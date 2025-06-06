@@ -15,23 +15,19 @@ export function middleware(request) {
   if (isAuthPage(pathname)) {
     // If user is authenticated and trying to access auth pages, redirect to home
     if (user) {
-      console.log("Authenticated user accessing auth page, redirecting to /home");
       return NextResponse.redirect(new URL("/home", request.url));
     }
     // If user is not authenticated, allow access to auth pages
-    console.log("Unauthenticated user accessing auth page, allowing access");
     return NextResponse.next();
   }
 
   // For all other pages, require authentication
   if (!user) {
-    console.log("Unauthenticated user accessing protected page, redirecting to /auth/sign-in");
     if (pathname.includes("/auth")) return NextResponse.next();
     return NextResponse.redirect(new URL("/auth/sign-in", request.url));
   }
 
   // User is authenticated and accessing protected pages
-  console.log("Authenticated user accessing protected page, allowing access");
   return NextResponse.next();
 }
 
