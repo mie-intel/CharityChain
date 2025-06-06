@@ -1,4 +1,26 @@
+// "use client";
+
+// import { useContext, useState, useEffect } from "react";
+// import { Loading } from "@/components/Elements";
+// import { AuthContext } from "@/components/Contexts/AuthProvider";
+
 export default function Campaign() {
+  // const { getCurrentUser } = useContext(AuthContext);
+  // const [currentUser, setCurrentUser] = useState(null);
+  // useEffect(() => {
+  //   const fetchCurrentUser = async () => {
+  //     const user = await getCurrentUser();
+  //     if (user.status === "success") {
+  //       setCurrentUser(user);
+  //     } else {
+  //       console.error("Error fetching current user:", user.error);
+  //     }
+  //   };
+  //   fetchCurrentUser();
+  // }, []);
+  // if (!currentUser) {
+  //   return <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />;
+  // }
   return (
     <>
       <link
@@ -93,10 +115,7 @@ export default function Campaign() {
             </div>
             <div className="flex w-full flex-wrap justify-between gap-10">
               {/* {data.map((item) => {
-            return (
-              
-            );
-          })} */}
+                return ( */}
               <a
                 href="/campaign/detail"
                 className="group flex max-w-sm cursor-pointer flex-col overflow-hidden rounded-lg shadow-md transition-all duration-200 hover:bg-blue-50 hover:shadow-lg"
@@ -131,6 +150,8 @@ export default function Campaign() {
                   </div>
                 </div>
               </a>
+              {/* );
+              })} */}
             </div>
           </div>
         </div>
