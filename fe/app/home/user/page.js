@@ -3,10 +3,14 @@
 import { useContext, useState, useEffect } from "react";
 import { Loading } from "@/components/Elements";
 import { AuthContext } from "@/components/Contexts/AuthProvider";
+import { Navbar } from "@/components/Elements/Navbar";
 
 export default function User() {
-  const { getCurrentUser } = useContext(AuthContext);
+  const { getCurrentUser, topUpBalance } = useContext(AuthContext); // Add topUpBalance
   const [currentUser, setCurrentUser] = useState(null);
+  const [topUpAmount, setTopUpAmount] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     const fetchCurrentUser = async () => {
       const user = await getCurrentUser();
@@ -18,59 +22,49 @@ export default function User() {
     };
     fetchCurrentUser();
   }, []);
+  const handleTopUp = async () => {
+    if (!topUpAmount || parseFloat(topUpAmount) <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // Call topUpBalance from AuthContext
+      const response = await topUpBalance(parseFloat(topUpAmount));
+
+      if (response.status === "success") {
+        // Update current user balance with the new balance from contract
+        setCurrentUser((prev) => ({
+          ...prev,
+          balance: response.newBalance,
+        }));
+
+        setTopUpAmount("");
+        alert(`Top-up successful! New balance: ${response.newBalance}`);
+      } else {
+        throw new Error(response.error || "Top-up failed");
+      }
+    } catch (error) {
+      console.error("Top-up error:", error);
+      alert(`Top-up failed: ${error.message || "Please try again."}`);
+    } finally {
+      setIsLoading(false);
+      window.location.reload(); // Refresh the page to reflect the new balance
+    }
+  };
+
   if (!currentUser) {
     return <Loading className={"fixed h-screen w-screen bg-[url('/bg-comp.webp')] bg-cover"} />;
   }
+
   return (
     <>
       <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       />
-      <nav className="bg-blue-dark/90 border-b-blue-navy fixed top-0 left-0 z-[99999] w-full border-b-1 backdrop-blur-sm">
-        <div className="container mx-auto flex items-center justify-between px-4 py-3">
-          <div className="flex flex-1/4 flex-col justify-center">
-            <a href="/" className="text-blue-500">
-              <h1 className="text-2xl font-extrabold">CharityChain</h1>
-              <p className="font-bold">Blockchain Based Tech.</p>
-            </a>
-          </div>
-          <div
-            className="bg-blue-dark text-peach border-blue-navy absolute top-20 -right-2 z-[9999] hidden w-2/3 flex-col overflow-hidden rounded-bl-xl border-1 transition-all duration-300 md:static md:flex md:w-auto md:flex-3/4 md:flex-row-reverse md:rounded-none md:border-none md:bg-transparent"
-            id="nav-menu"
-          >
-            <div className="flex flex-col items-center md:flex-row md:justify-between">
-              <a href="/" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
-                Beranda
-              </a>
-              <a href="/campaign" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
-                Campaign
-              </a>
-              <a href="/user" className="px-4 py-5 hover:text-blue-500 md:ml-7 md:p-0">
-                Akun
-              </a>
-              <a
-                href="/sign-in"
-                className="px-4 py-5 text-blue-500 hover:scale-105 md:ml-7 md:p-0 md:font-bold"
-              >
-                Masuk
-              </a>
-              <a
-                href="/sign-up"
-                className="px-4 py-5 text-white hover:text-blue-500 md:ml-7 md:rounded-md md:bg-blue-500 md:px-3 md:py-1 md:font-bold md:text-white md:hover:bg-blue-500/90 md:hover:text-white"
-              >
-                Daftar
-              </a>
-            </div>
-          </div>
-
-          <div className="group flex flex-col hover:cursor-pointer md:hidden" id="nav-toggle">
-            <span className="nav-toggle origin-top-left transition-all duration-200"></span>
-            <span className="nav-toggle transition-all duration-200"></span>
-            <span className="nav-toggle origin-bottom-left transition-all duration-200"></span>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
       <section id="user" className="py-30 text-black">
         <div className="container mx-auto px-4">
           <h1 className="text-blue-dark mb-10 text-center text-4xl font-extrabold md:text-left">
@@ -91,7 +85,7 @@ export default function User() {
             <div className="flex">
               <div className="flex h-[128px] w-[128px] items-center justify-center overflow-hidden rounded-full shadow-lg">
                 <img
-                  src="/anies-senyum.jpeg"
+                  src="/anies-senyum2.png"
                   alt="Gambar Obat"
                   className="h-full w-full object-cover"
                 />
@@ -99,13 +93,35 @@ export default function User() {
               <div className="flex-flex-col ml-[64px]">
                 <h2 className="mb-5 text-2xl font-extrabold">{currentUser?.username}</h2>
                 <div className="mb-4 flex items-center text-lg">
-                  <span className="material-symbols-outlined">attach_money</span>
                   <p className="mr-2 font-bold">Saldo:</p>
-                  <span className="font-extrabold text-blue-500">ETH {currentUser?.balance}</span>
+                  <span className="font-extrabold text-blue-500">Rp {currentUser?.balance}</span>
                 </div>
                 <div className="mb-3 flex flex-col">
                   <h3>Address</h3>
                   <p className="font-medium">{currentUser?.address ? currentUser?.address : "-"}</p>
+                </div>
+
+                {/* Top-up Section */}
+                <div className="mt-6 flex flex-col">
+                  <h3 className="mb-3 text-lg font-bold">Top Up Saldo</h3>
+                  <div className="flex gap-3">
+                    <input
+                      type="number"
+                      value={topUpAmount}
+                      onChange={(e) => setTopUpAmount(e.target.value)}
+                      placeholder="Masukkan jumlah"
+                      className="flex-1 rounded border border-gray-300 px-3 py-2"
+                      min="0"
+                      step="0.01"
+                    />
+                    <button
+                      onClick={handleTopUp}
+                      disabled={isLoading}
+                      className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:opacity-50"
+                    >
+                      {isLoading ? "Loading..." : "Top Up"}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

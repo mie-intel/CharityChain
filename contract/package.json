@@ -9,7 +9,11 @@
     "coverage": "hardhat coverage",
     "compile": "hardhat compile",
     "deploy": "hardhat run scripts/deploy.js --network localhost",
-    "verify": "hardhat verify --network localhost"
+    "deploy:sepolia": "hardhat run scripts/deploy-sepolia.js --network sepolia",
+    "verify": "hardhat verify --network localhost",
+    "verify:sepolia": "hardhat verify --network sepolia",
+    "estimate-gas": "hardhat run scripts/estimate-gas.js --network localhost",
+    "estimate-gas:sepolia": "hardhat run scripts/estimate-gas.js --network sepolia"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
